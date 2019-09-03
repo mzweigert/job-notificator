@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>All source pages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.css}">
+</head>
+
+<body>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${sourcePages}" class="container my-5">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a th:href="@{/sourcePages/new}" class="btn btn-primary">
+                            <i class="fas fa-plus ml-2"> Add source page </i></a>
+                    </div>
+                    <div class="col-md-2">
+                        <a th:href="@{/}" class="btn btn-primary">
+                            <i class="fas ml-2"> Home </i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                    <h2 th:case="null">No record found !!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Url
+                                <th>Active</th>
+                                <th>Additional selector</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="sourcePage : ${sourcePages}">
+                                <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.url}"></td>
+                                <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.active}"></td>
+                                <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.additionalSelector}"></td>
+                                <td>
+                                    <a th:href="@{/sourcePages/edit/{id}(id=${sourcePage.id})}" class="btn btn-primary">
+                                        <i class="fas fa-edit ml-2"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/sourcePages/delete/{id}(id=${sourcePage.id})}"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-trash ml-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

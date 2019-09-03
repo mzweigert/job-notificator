@@ -1,22 +1,27 @@
 package com.mzweigert.jobnotificator.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Receiver extends ConfigurableEntity {
 
     @Column(nullable = false)
+    @NotEmpty
+    @Email
     private String mail;
 
     @ManyToMany
     @JoinTable(
             name = "SentJobsToReceiver",
-			inverseJoinColumns = {
+            inverseJoinColumns = {
                     @JoinColumn(name = "jobId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_SentJobsToReceiver_Job"))
             },
-			joinColumns = {
+            joinColumns = {
                     @JoinColumn(name = "receiverId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_SentJobsToReceiver_Receiver"))
             })
     private Set<Job> sentJobs = new LinkedHashSet<>();
@@ -24,11 +29,11 @@ public class Receiver extends ConfigurableEntity {
     @ManyToMany
     @JoinTable(
             name = "SubscribedSourcePagesReceiver",
-			inverseJoinColumns = {
+            inverseJoinColumns = {
                     @JoinColumn(name = "sourcePageId", referencedColumnName = "id",
                             foreignKey = @ForeignKey(name = "FK_SubscribedSourcePagesReceiver_SourcePage"))
             },
-			joinColumns = {
+            joinColumns = {
                     @JoinColumn(name = "receiverId", referencedColumnName = "id",
                             foreignKey = @ForeignKey(name = "FK_SubscribedSourcePagesReceiver_Receiver"))
             })
@@ -56,5 +61,16 @@ public class Receiver extends ConfigurableEntity {
 
     public void setSubscribedSourcePages(Set<SourcePage> subscribedSourcePages) {
         this.subscribedSourcePages = subscribedSourcePages;
+    }
+
+    public void addSentJobs(Set<Job> sentJobs) {
+        this.sentJobs.addAll(sentJobs);
+    }
+
+    public String getSubscribedSourcePagesAsString() {
+        return subscribedSourcePages.stream()
+                .map(IdentifiableEntity::getId)
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
     }
 }

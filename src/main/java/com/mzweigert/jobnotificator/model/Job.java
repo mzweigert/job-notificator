@@ -3,7 +3,7 @@ package com.mzweigert.jobnotificator.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import java.util.Objects;
 
 @Entity
 public class Job extends IdentifiableEntity {
@@ -28,5 +28,19 @@ public class Job extends IdentifiableEntity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Job)) return false;
+        Job job = (Job) o;
+        return Objects.equals(sourcePage, job.sourcePage) &&
+                Objects.equals(url, job.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sourcePage, url);
     }
 }
