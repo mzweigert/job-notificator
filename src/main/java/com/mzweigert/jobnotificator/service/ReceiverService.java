@@ -5,6 +5,7 @@ import com.mzweigert.jobnotificator.repository.ReceiverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,19 +19,7 @@ public class ReceiverService {
 	}
 
 	public Receiver merge(Receiver receiver) {
-		if (receiver.getId() == null) {
-			return repository.save(receiver);
-		} else {
-			Optional<Receiver> receiverOptional = repository.findById(receiver.getId());
-			if (!receiverOptional.isPresent()) {
-				return null;
-			}
-			Receiver foundEntity = receiverOptional.get();
-			foundEntity.setMail(receiver.getMail());
-			foundEntity.setSubscribedSourcePages(receiver.getSubscribedSourcePages());
-			repository.save(foundEntity);
-			return foundEntity;
-		}
+		return repository.save(receiver);
 	}
 
 	public Iterable<Receiver> findAll() {
@@ -43,5 +32,9 @@ public class ReceiverService {
 
 	public void deleteById(Long id) {
 		repository.deleteById(id);
+	}
+
+	public List<Receiver> findAllActive() {
+		return repository.findAllActive();
 	}
 }
