@@ -35,6 +35,7 @@ public class JobService {
 
 		return crawlerService.crawl(args)
 				.stream()
+				.filter(pageLink -> !pageLink.getUrl().equals(sourcePage.getUrl()))
 				.map(pageLink -> findOrCreateJob(pageLink.getUrl(), sourcePage))
 				.collect(Collectors.toSet());
 	}

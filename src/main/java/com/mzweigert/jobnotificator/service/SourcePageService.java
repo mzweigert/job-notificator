@@ -18,19 +18,7 @@ public class SourcePageService {
 	}
 
 	public SourcePage merge(SourcePage sourcePage) {
-		if (sourcePage.getId() == null) {
-			return repository.save(sourcePage);
-		} else {
-			Optional<SourcePage> page = repository.findById(sourcePage.getId());
-			if (!page.isPresent()) {
-				return null;
-			}
-			SourcePage foundEntity = page.get();
-			foundEntity.setUrl(sourcePage.getUrl());
-			foundEntity.setAdditionalSelector(sourcePage.getAdditionalSelector());
-			repository.save(foundEntity);
-			return foundEntity;
-		}
+		return repository.save(sourcePage);
 	}
 
 	public Iterable<SourcePage> findAll() {
