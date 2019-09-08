@@ -1,6 +1,6 @@
-package com.mzweigert.jobnotificator.repository;
+package com.mzweigert.jobnotifier.repository;
 
-import com.mzweigert.jobnotificator.model.SourcePage;
+import com.mzweigert.jobnotifier.model.SourcePage;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

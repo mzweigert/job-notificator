@@ -1,4 +1,4 @@
-package com.mzweigert.jobnotificator.model;
+package com.mzweigert.jobnotifier.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,13 +1,10 @@
-/*
- * Copyright (c) 2019. BEST S.A. and/or its affiliates. All rights reserved.
- */
-package com.mzweigert.jobnotificator.service;
+package com.mzweigert.jobnotifier.service;
 
 import com.mzweigert.crawler.service.crawler.CrawlerArgs;
 import com.mzweigert.crawler.service.crawler.CrawlerService;
-import com.mzweigert.jobnotificator.model.Job;
-import com.mzweigert.jobnotificator.model.SourcePage;
-import com.mzweigert.jobnotificator.repository.JobRepository;
+import com.mzweigert.jobnotifier.model.Job;
+import com.mzweigert.jobnotifier.model.SourcePage;
+import com.mzweigert.jobnotifier.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

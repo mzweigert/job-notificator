@@ -1,9 +1,6 @@
-/*
- * Copyright (c) 2019. BEST S.A. and/or its affiliates. All rights reserved.
- */
-package com.mzweigert.jobnotificator.controller;
+package com.mzweigert.jobnotifier.controller;
 
-import com.mzweigert.jobnotificator.service.ResendJobsService;
+import com.mzweigert.jobnotifier.service.ResendJobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

@@ -9,15 +9,15 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mzweigert</groupId>
-	<artifactId>job-notificator</artifactId>
+	<artifactId>job-notifier</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>job-notificator</name>
+	<name>job-notifier</name>
 	<description>Notifier about new job offers. Full configurable.</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<start-class>com.mzweigert.jobnotificator.JobNotificatorApplication</start-class>
+		<start-class>com.mzweigert.jobnotifier.JobNotifierApplication</start-class>
 	</properties>
 
 	<repositories>

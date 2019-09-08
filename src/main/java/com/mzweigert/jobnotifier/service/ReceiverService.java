@@ -1,7 +1,7 @@
-package com.mzweigert.jobnotificator.service;
+package com.mzweigert.jobnotifier.service;
 
-import com.mzweigert.jobnotificator.model.Receiver;
-import com.mzweigert.jobnotificator.repository.ReceiverRepository;
+import com.mzweigert.jobnotifier.model.Receiver;
+import com.mzweigert.jobnotifier.repository.ReceiverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

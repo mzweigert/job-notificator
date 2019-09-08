@@ -1,9 +1,6 @@
-/*
- * Copyright (c) 2019. BEST S.A. and/or its affiliates. All rights reserved.
- */
-package com.mzweigert.jobnotificator.util;
+package com.mzweigert.jobnotifier.util;
 
-import com.mzweigert.jobnotificator.model.Job;
+import com.mzweigert.jobnotifier.model.Job;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

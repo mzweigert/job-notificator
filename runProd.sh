@@ -30,6 +30,6 @@ resend_pass=$(validate_input "resend password: ")
 mvn clean install:install-file -Durl=file:./lib/ -DrepositoryId=lib -DupdateReleaseInfo=true \
 -Dfile=./lib/crawler-1.0.jar -DgroupId=com.mzweigert.crawler -DartifactId=crawler -Dversion=1.0 -DpomFile=./lib/crawler-1.0.pom.xml
 mvn install -DskipTests=true
-nohup java -jar -Dspring.profiles.active=prod target/job-notificator.jar \
+nohup java -jar -Dspring.profiles.active=prod target/job-notifier.jar \
 --spring.datasource.username="${database_username}" --spring.datasource.password="${database_pass}" \
 --email.password="${email_pass}" --resend.password="${resend_pass}" &

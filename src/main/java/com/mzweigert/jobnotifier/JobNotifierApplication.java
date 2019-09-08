@@ -1,13 +1,13 @@
-package com.mzweigert.jobnotificator;
+package com.mzweigert.jobnotifier;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JobNotificatorApplication {
+public class JobNotifierApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JobNotificatorApplication.class, args);
+		SpringApplication.run(JobNotifierApplication.class, args);
 	}
 
 }

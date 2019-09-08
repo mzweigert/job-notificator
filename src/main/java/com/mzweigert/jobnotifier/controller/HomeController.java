@@ -1,4 +1,4 @@
-package com.mzweigert.jobnotificator.controller;
+package com.mzweigert.jobnotifier.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

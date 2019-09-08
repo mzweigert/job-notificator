@@ -1,10 +1,7 @@
-/*
- * Copyright (c) 2019. BEST S.A. and/or its affiliates. All rights reserved.
- */
-package com.mzweigert.jobnotificator.service;
+package com.mzweigert.jobnotifier.service;
 
-import com.mzweigert.jobnotificator.model.Job;
-import com.mzweigert.jobnotificator.util.MailContentGenerator;
+import com.mzweigert.jobnotifier.model.Job;
+import com.mzweigert.jobnotifier.util.MailContentGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,7 +14,7 @@ import java.util.Set;
 public class MailService {
 
 	@Value("${email.username}")
-	private String notificatorMail;
+	private String notifierMail;
 
 	private final MailContentGenerator contentGenerator;
 	private final JavaMailSender javaMailSender;
@@ -30,7 +27,7 @@ public class MailService {
 
 	public boolean sendJobs(Set<Job> jobsToSend, String receiverMail) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(notificatorMail);
+		message.setFrom(notifierMail);
 		message.setTo(receiverMail);
 		message.setSubject(contentGenerator.generateSubject(jobsToSend.size()));
 		message.setText(contentGenerator.generateContent(jobsToSend));

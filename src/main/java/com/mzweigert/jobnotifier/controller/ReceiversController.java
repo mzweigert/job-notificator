@@ -1,8 +1,8 @@
-package com.mzweigert.jobnotificator.controller;
+package com.mzweigert.jobnotifier.controller;
 
-import com.mzweigert.jobnotificator.model.Receiver;
-import com.mzweigert.jobnotificator.service.ReceiverService;
-import com.mzweigert.jobnotificator.service.SourcePageService;
+import com.mzweigert.jobnotifier.model.Receiver;
+import com.mzweigert.jobnotifier.service.ReceiverService;
+import com.mzweigert.jobnotifier.service.SourcePageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

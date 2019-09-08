@@ -1,11 +1,8 @@
-/*
- * Copyright (c) 2019. BEST S.A. and/or its affiliates. All rights reserved.
- */
-package com.mzweigert.jobnotificator.service;
+package com.mzweigert.jobnotifier.service;
 
-import com.mzweigert.jobnotificator.model.Job;
-import com.mzweigert.jobnotificator.model.Receiver;
-import com.mzweigert.jobnotificator.model.SourcePage;
+import com.mzweigert.jobnotifier.model.Job;
+import com.mzweigert.jobnotifier.model.Receiver;
+import com.mzweigert.jobnotifier.model.SourcePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
