@@ -15,7 +15,7 @@ public class Receiver extends ConfigurableEntity {
     @Email
     private String mail;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "SentJobsToReceiver",
             inverseJoinColumns = {
@@ -26,7 +26,7 @@ public class Receiver extends ConfigurableEntity {
             })
     private Set<Job> sentJobs = new LinkedHashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "SubscribedSourcePagesReceiver",
             inverseJoinColumns = {

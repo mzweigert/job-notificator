@@ -1,5 +1,6 @@
 package com.mzweigert.jobnotifier.controller;
 
+import com.mzweigert.jobnotifier.model.Job;
 import com.mzweigert.jobnotifier.model.Receiver;
 import com.mzweigert.jobnotifier.service.ReceiverService;
 import com.mzweigert.jobnotifier.service.SourcePageService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/receivers")
@@ -63,6 +65,8 @@ public class ReceiversController {
 		if (bindingResult.hasErrors()) {
 			return "add-edit-receiver";
 		}
+		Set<Job> sentJobs = receiverService.findSentJobsByReceiverId(receiver.getId());
+		receiver.setSentJobs(sentJobs);
 		receiverService.merge(receiver);
 		return "redirect:/receivers";
 	}
