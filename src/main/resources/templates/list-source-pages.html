@@ -40,6 +40,7 @@
                         <table class="table table-striped table-responsive-md">
                             <thead>
                             <tr>
+                                <th>Description</th>
                                 <th>Url
                                 <th>Active</th>
                                 <th>Additional selector</th>
@@ -47,6 +48,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="sourcePage : ${sourcePages}">
+                                <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.description}"></td>
                                 <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.url}"></td>
                                 <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.active}"></td>
                                 <td class="text-truncate" style="max-width: 10em" th:text="${sourcePage.additionalSelector}"></td>

@@ -11,6 +11,10 @@ import java.util.Set;
 public class SourcePage extends ConfigurableEntity {
 
     @NotEmpty
+    @Column(nullable = false)
+    private String description;
+
+    @NotEmpty
     @URL
     @Column(nullable = false)
     private String url;
@@ -32,6 +36,14 @@ public class SourcePage extends ConfigurableEntity {
                             foreignKey = @ForeignKey(name = "FK_SubscribedSourcePagesReceiver_Receiver"))
             })
     private Set<Receiver> receivers;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getUrl() {
         return url;
@@ -68,22 +80,15 @@ public class SourcePage extends ConfigurableEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SourcePage)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         SourcePage that = (SourcePage) o;
         return Objects.equals(url, that.url) &&
+                Objects.equals(description, that.description) &&
                 Objects.equals(additionalSelector, that.additionalSelector);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, additionalSelector);
-    }
-
-    @Override
-    public String toString() {
-        return "SourcePage{" +
-                "url='" + url + '\'' +
-                ", additionalSelector='" + additionalSelector + '\'' +
-                '}';
+        return Objects.hash(url, description, additionalSelector);
     }
 }
