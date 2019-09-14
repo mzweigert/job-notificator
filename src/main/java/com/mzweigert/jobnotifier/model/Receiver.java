@@ -15,7 +15,7 @@ public class Receiver extends ConfigurableEntity {
     @Email
     private String mail;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
             name = "SentJobsToReceiver",
             inverseJoinColumns = {
@@ -26,7 +26,7 @@ public class Receiver extends ConfigurableEntity {
             })
     private Set<Job> sentJobs = new LinkedHashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
             name = "SubscribedSourcePagesReceiver",
             inverseJoinColumns = {

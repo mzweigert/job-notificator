@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/all.css}">
+
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
 </head>
 
 <body>
@@ -27,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-10">
-                    <h2 th:case="null">No record found !!</h2>
+                    <h2 th:case="null">No records found !!</h2>
                     <div th:case="*">
                         <table class="table table-striped table-responsive-md">
                             <thead>
@@ -48,10 +52,31 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/receivers/delete/{id}(id=${receiver.id})}" class="btn btn-primary">
+                                    <a th:href="@{'#delete_modal_' + ${receiver.id}}" class="btn btn-danger" data-toggle="modal" role="button">
                                         <i class="fas fa-user-times ml-2"></i>
                                     </a>
+
                                 </td>
+
+                                <div th:id="'delete_modal_' + ${receiver.id}" class="modal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Confirm Delete</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete? </p>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <a th:href="@{/receivers/delete/{id}(id=${receiver.id})}" class="btn btn-danger" title="Delete"><i class="fa fa-trash-o"></i>Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </tr>
                             </tbody>
                         </table>

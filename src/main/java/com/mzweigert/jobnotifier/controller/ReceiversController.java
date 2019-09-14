@@ -41,7 +41,11 @@ public class ReceiversController {
 	public String newOrEdit(Model model, @PathVariable("id") Optional<Long> id) {
 		if (id.isPresent()) {
 			Optional<Receiver> entity = receiverService.findById(id.get());
-			model.addAttribute("receiver", entity);
+			entity.ifPresent(receiver -> {
+				model.addAttribute("receiver", receiver);
+				Set<Job> sentJobsByReceiverId = receiverService.findSentJobsByReceiverId(receiver.getId());
+				model.addAttribute("sentJobs", sentJobsByReceiverId);
+			});
 		} else {
 			model.addAttribute("receiver", new Receiver());
 		}
