@@ -21,7 +21,7 @@ public interface ReceiverRepository extends CrudRepository<Receiver, Long> {
 
 
 	@Query("select sj from Receiver r " +
-			"left join r.sentJobs sj " +
+			"join r.sentJobs sj " +
 			"where r.id = :id")
 	Set<Job> findSentJobsByReceiverId(@Param("id") Long id);
 }

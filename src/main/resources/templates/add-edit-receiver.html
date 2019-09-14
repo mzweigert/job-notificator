@@ -42,11 +42,11 @@
                         <label for="subscribedSourcePages" class="col-form-label">subscribed source pages</label>
                         <select id="subscribedSourcePages" class="form-control" th:field="*{subscribedSourcePages}"
                                 multiple="multiple">
-                            <option th:each="sp : ${sourcePages}" th:value="${sp.id}" th:text="${sp.url}"></option>
+                            <option th:each="sp : ${sourcePages}" th:value="${sp.id}" th:text="${sp.description + ' - ' + sp.url}"></option>
                         </select>
                     </div>
 
-                    <div class="form-group" th:if="${receiver.id != null}">
+                    <div class="form-group" th:if="${receiver.id != null && sentJobs != null}">
                         <label for="sentJobs" class="col-form-label">sent jobs</label>
                         <select id="sentJobs" class="form-control" multiple="multiple" >
                             <option disabled="disabled" th:each="sj : ${sentJobs}" th:value="${sj.id}" th:text="${sj.url}" ></option>
