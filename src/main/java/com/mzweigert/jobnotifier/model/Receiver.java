@@ -73,4 +73,10 @@ public class Receiver extends ConfigurableEntity {
                 .map(Object::toString)
                 .collect(Collectors.joining(", "));
     }
+
+    public void removeSubscribedPage(SourcePage sourcePage) {
+        if(subscribedSourcePages != null) {
+            subscribedSourcePages.remove(sourcePage);
+        }
+    }
 }

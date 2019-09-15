@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,17 +25,7 @@ public class SourcePage extends ConfigurableEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sourcePage", cascade = CascadeType.REMOVE)
     private Set<Job> jobs;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinTable(
-            name = "SubscribedSourcePagesReceiver",
-            joinColumns = {
-                    @JoinColumn(name = "sourcePageId", referencedColumnName = "id",
-                            foreignKey = @ForeignKey(name = "FK_SubscribedSourcePagesReceiver_SourcePage"))
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "receiverId", referencedColumnName = "id",
-                            foreignKey = @ForeignKey(name = "FK_SubscribedSourcePagesReceiver_Receiver"))
-            })
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subscribedSourcePages")
     private Set<Receiver> receivers;
 
     public String getDescription() {
@@ -75,6 +66,13 @@ public class SourcePage extends ConfigurableEntity {
 
     public void setReceivers(Set<Receiver> receivers) {
         this.receivers = receivers;
+    }
+
+    @PreRemove
+    public void detachEntities() {
+        if(receivers != null) {
+            receivers.forEach(receiver -> receiver.removeSubscribedPage(this));
+        }
     }
 
     @Override

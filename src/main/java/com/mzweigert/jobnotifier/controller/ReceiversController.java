@@ -65,8 +65,9 @@ public class ReceiversController {
 	}
 
 	@PostMapping(path = {"/save"})
-	public String save(@Valid Receiver receiver, BindingResult bindingResult) {
+	public String save(Model model, @Valid Receiver receiver, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("sourcePages", sourcePageService.findAll());
 			return "add-edit-receiver";
 		}
 		Set<Job> sentJobs = receiverService.findSentJobsByReceiverId(receiver.getId());
