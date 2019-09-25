@@ -40,7 +40,7 @@ public class ReceiverService {
 		repository.deleteById(id);
 	}
 
-	public List<Receiver> findAllActive() {
+	public Set<Receiver> findAllActive() {
 		return repository.findAllActive();
 	}
 }

@@ -4,13 +4,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
 public class Receiver extends ConfigurableEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotEmpty
     @Email
     private String mail;
@@ -78,5 +79,18 @@ public class Receiver extends ConfigurableEntity {
         if(subscribedSourcePages != null) {
             subscribedSourcePages.remove(sourcePage);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Receiver)) return false;
+        Receiver receiver = (Receiver) o;
+        return Objects.equals(mail, receiver.mail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mail);
     }
 }

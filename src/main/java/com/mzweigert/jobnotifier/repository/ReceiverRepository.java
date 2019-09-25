@@ -17,7 +17,7 @@ public interface ReceiverRepository extends CrudRepository<Receiver, Long> {
 			"left join fetch r.sentJobs sj " +
 			"left join fetch r.subscribedSourcePages ssp " +
 			"where r.active = true")
-	List<Receiver> findAllActive();
+	Set<Receiver> findAllActive();
 
 
 	@Query("select sj from Receiver r " +
