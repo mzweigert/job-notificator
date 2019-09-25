@@ -32,7 +32,10 @@ public class ResendJobsService {
 	}
 
 	public void resend() {
-		receiverService.findAllActive()
+		Set<Receiver> activeReceivers = receiverService.findAllActive();
+		System.out.println("Found " + activeReceivers.size() + " receivers.");
+
+		activeReceivers
 				.stream()
 				.map(activeReceiver -> (Runnable) () -> resendJobsToReceiver(activeReceiver))
 				.forEach(executorService::submit);
