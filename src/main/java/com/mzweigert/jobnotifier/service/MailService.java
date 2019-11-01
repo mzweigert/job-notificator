@@ -9,9 +9,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class MailService {
+
+	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Value("${email.username}")
 	private String notifierMail;
@@ -35,7 +39,7 @@ public class MailService {
 			javaMailSender.send(message);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage());
 			return false;
 		}
 	}

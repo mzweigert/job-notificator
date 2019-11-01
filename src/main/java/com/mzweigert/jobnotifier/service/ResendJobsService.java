@@ -11,12 +11,16 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class ResendJobsService {
 
-	private final ReceiverService receiverService;
+    private static final Logger logger = Logger.getAnonymousLogger();
+
+    private final ReceiverService receiverService;
 	private final JobService jobService;
 	private final MailService mailService;
 	private final ExecutorService executorService;
@@ -40,18 +44,21 @@ public class ResendJobsService {
 
 	private void resendJobsToReceiver(Receiver activeReceiver) {
 		Set<Job> foundJobs = getFromCache(activeReceiver);
+        logger.log(Level.INFO, "Found : " + foundJobs.size() + " jobs for " + activeReceiver.getMail() + ".");
 
 		Set<Job> sentJobs = activeReceiver.getSentJobs();
+        logger.log(Level.INFO, "Found : " + sentJobs.size() + " sent jobs for " + activeReceiver.getMail() + ".");
 
 		Set<Job> toSend = foundJobs.stream()
 				.filter(foundJob -> !sentJobs.contains(foundJob))
 				.collect(Collectors.toSet());
 
-		if(toSend.isEmpty()) {
+        logger.log(Level.INFO, "Found : " + toSend.size() + " jobs to send for " + activeReceiver.getMail() + ".");
+
+        if(toSend.isEmpty()) {
 			return;
 		}
 
-		System.out.println("new jobs for " + activeReceiver.getMail());
 		boolean mailSent = mailService.sendJobs(toSend, activeReceiver.getMail());
 		if(mailSent) {
 			activeReceiver.addSentJobs(toSend);
