@@ -6,9 +6,7 @@ import com.mzweigert.jobnotifier.model.SourcePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -24,7 +22,6 @@ public class ResendJobsService {
 	private final JobService jobService;
 	private final MailService mailService;
 	private final ExecutorService executorService;
-	private final Map<SourcePage, Set<Job>> cache;
 
 	@Autowired
 	public ResendJobsService(ReceiverService receiverService, JobService jobService, MailService mailService) {
@@ -32,7 +29,6 @@ public class ResendJobsService {
 		this.jobService = jobService;
 		this.mailService = mailService;
 		this.executorService = Executors.newWorkStealingPool();
-		this.cache = new ConcurrentHashMap<>();
 	}
 
 	public void resend() {
@@ -43,17 +39,17 @@ public class ResendJobsService {
 	}
 
 	private void resendJobsToReceiver(Receiver activeReceiver) {
-		Set<Job> foundJobs = getFromCache(activeReceiver);
-        logger.log(Level.INFO, "Found : " + foundJobs.size() + " jobs for " + activeReceiver.getMail() + ".");
+		Set<Job> foundJobs = findJobs(activeReceiver);
+        logger.log(Level.INFO, "Found " + foundJobs.size() + " jobs for " + activeReceiver.getMail() + ".");
 
 		Set<Job> sentJobs = activeReceiver.getSentJobs();
-        logger.log(Level.INFO, "Found : " + sentJobs.size() + " sent jobs for " + activeReceiver.getMail() + ".");
+        logger.log(Level.INFO, "Found " + sentJobs.size() + " jobs sent to " + activeReceiver.getMail() + ".");
 
 		Set<Job> toSend = foundJobs.stream()
 				.filter(foundJob -> !sentJobs.contains(foundJob))
 				.collect(Collectors.toSet());
 
-        logger.log(Level.INFO, "Found : " + toSend.size() + " jobs to send for " + activeReceiver.getMail() + ".");
+        logger.log(Level.INFO, "Found " + toSend.size() + " jobs to send for " + activeReceiver.getMail() + ".");
 
         if(toSend.isEmpty()) {
 			return;
@@ -66,11 +62,11 @@ public class ResendJobsService {
 		}
 	}
 
-	private Set<Job> getFromCache(Receiver activeReceiver) {
+	private Set<Job> findJobs(Receiver activeReceiver) {
 		return activeReceiver.getSubscribedSourcePages()
 				.stream()
 				.filter(SourcePage::isActive)
-				.map(sourcePage -> cache.computeIfAbsent(sourcePage, jobService::findFromSourcePage))
+				.map(jobService::findFromSourcePage)
 				.flatMap(Set::stream)
 				.collect(Collectors.toSet());
 	}

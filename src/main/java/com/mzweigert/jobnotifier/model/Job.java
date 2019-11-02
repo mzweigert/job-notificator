@@ -13,17 +13,6 @@ public class Job extends IdentifiableEntity {
     @Column(nullable = false)
     private String url;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
-    @JoinTable(
-            name = "SentJobsToReceiver",
-            inverseJoinColumns = {
-                    @JoinColumn(name = "receiverId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_SentJobsToReceiver_Receiver"))
-            },
-            joinColumns = {
-                    @JoinColumn(name = "jobId", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_SentJobsToReceiver_Job"))
-            })
-    public Set<Receiver> receivers;
-
     public SourcePage getSourcePage() {
         return sourcePage;
     }
@@ -38,14 +27,6 @@ public class Job extends IdentifiableEntity {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public Set<Receiver> getReceivers() {
-        return receivers;
-    }
-
-    public void setReceivers(Set<Receiver> receivers) {
-        this.receivers = receivers;
     }
 
     @Override

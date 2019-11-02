@@ -50,12 +50,15 @@ public class JobService {
 	}
 
 	private Job findOrCreateJob(String url, SourcePage sourcePage) {
+		logger.log(Level.INFO, "findByUrlAndSourcePageId: url - " + url );
+
 		return repository
 				.findByUrlAndSourcePageId(url, sourcePage.getId())
 				.orElseGet(() -> {
 					Job job = new Job();
 					job.setUrl(url);
 					job.setSourcePage(sourcePage);
+					logger.log(Level.INFO, "Save job:" + job.getUrl());
 					return repository.save(job);
 				});
 	}
