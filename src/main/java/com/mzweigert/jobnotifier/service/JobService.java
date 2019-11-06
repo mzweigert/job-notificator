@@ -49,17 +49,19 @@ public class JobService {
 		return new HashSet<>();
 	}
 
-	private Job findOrCreateJob(String url, SourcePage sourcePage) {
+	private synchronized Job findOrCreateJob(String url, SourcePage sourcePage) {
 		logger.log(Level.INFO, "findByUrlAndSourcePageId: url - " + url );
 
 		return repository
 				.findByUrlAndSourcePageId(url, sourcePage.getId())
-				.orElseGet(() -> {
-					Job job = new Job();
-					job.setUrl(url);
-					job.setSourcePage(sourcePage);
-					logger.log(Level.INFO, "Save job:" + job.getUrl());
-					return repository.save(job);
-				});
+				.orElseGet(() -> createJob(url, sourcePage));
+	}
+
+	private Job createJob(String url, SourcePage sourcePage) {
+		Job job = new Job();
+		job.setUrl(url);
+		job.setSourcePage(sourcePage);
+		logger.log(Level.INFO, "Save job:" + job.getUrl());
+		return repository.save(job);
 	}
 }
